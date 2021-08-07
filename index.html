@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="typing.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <h1 style="text-align: center;">Typing test</h1>
+
+    <section class="container">
+        <div id='word-length'>
+            <button id="short" class="underline">25</button>
+            <button id="medium">50</button>
+            <button id="long">100</button>
+            <!-- <span id="short">25</span> / 
+            <span id="medium">50</span> / 
+            <span id="long">100</span> -->
+        </div>
+        <h3 id="text-display"></h3>
+        <input id="inputField" type='text' name='word'>
+        <button id='redo'>Redo</button>
+    </section>
+    
+    <h3 style="text-align: center;" id='score'>Your score:</h3>
+    <h3 style="text-align: center;" id='acc'></h3>
+
+</body>
+<script src="typing.js"></script>
+
+</html>
