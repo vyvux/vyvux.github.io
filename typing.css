@@ -1,0 +1,47 @@
+section {
+  border: solid 2px rosybrown;
+  padding: 20px 90px 50px;
+  margin-top: 10%;
+}
+
+#inputField {
+  width: 300px;
+  border: 2px solid blueviolet;
+  border-radius: 5px;
+  padding: 10px;
+  font: 20px sans-serif;
+  color: olive;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  color: blueviolet;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+#redo {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.underline {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#score {
+  margin-top: 20px;
+}
