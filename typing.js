@@ -5,7 +5,7 @@ let wordOrder = 0
 let point = 0
 let theWord
 let randomWords
-let wordLength = 50
+let wordLength = 25
 // setup typing 50 typing words
 let str = 'be and off a in to have too it I that for you he with on do say this they at but we his from that not can by she or as what go their who get if would her all my make take about know will one time there year so think when which them some me people out into just see him your come could now than like other how then its our two more these want look first also because day more use no find man here thing give many well only those tell through woman back even very down may should call world school ask need feel three when state never become between high really something most another much family own out leave old while mean on keep student great let group big same seem country help talk where turn start hand might show part against place over'
 let words = str.split(" ") 
@@ -24,7 +24,7 @@ input.addEventListener('keydown', function (e) {
         if (wordOrder < randomWords.length){
             textHighlight()
             checkFinishedSpelling(input.value)
-            document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/50`
+            document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
             input.value = ''
             wordOrder++
             if (wordOrder === randomWords.length) countAccuracy()
@@ -41,30 +41,30 @@ const long = document.querySelector('#long')
 short.addEventListener('click', function() {
     wordLength = 25
     start(wordLength)
-    short.classList.add('underline')
-    medium.classList.remove('underline')
-    long.classList.remove('underline')
+    short.classList.add('selected')
+    medium.classList.remove('selected')
+    long.classList.remove('selected')
 })
 medium.addEventListener('click', function() {
     wordLength = 50
     start(wordLength)
-    short.classList.remove('underline')
-    medium.classList.add('underline')
-    long.classList.remove('underline')
+    short.classList.remove('selected')
+    medium.classList.add('selected')
+    long.classList.remove('selected')
 })
 long.addEventListener('click', function() {
     wordLength = 100
     start(wordLength)
-    short.classList.remove('underline')
-    medium.classList.remove('underline')
-    long.classList.add('underline')
+    short.classList.remove('selected')
+    medium.classList.remove('selected')
+    long.classList.add('selected')
 })
 
 
 
 function checkFinishedSpelling(theWord) {
     if (theWord === randomWords[wordOrder].innerText) {
-        randomWords[wordOrder].style.color = 'gold'
+        randomWords[wordOrder].style.color = '#eba834'
         point++
     } else {
         randomWords[wordOrder].style.color = 'grey'
@@ -94,11 +94,11 @@ function start(number){
     }
     randomWords = document.querySelectorAll('span')
     textHighlight()
-    document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/50`
+    document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
 }
 
 function countAccuracy(){
-    document.querySelectorAll('h3')[2].innerText = `Accuracy: ${(point/50)*100}%`
+    document.querySelectorAll('h3')[2].innerText = `Accuracy: ${(point/wordLength)*100}%`
 }
 
 function correctInputStyle(){
