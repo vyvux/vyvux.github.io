@@ -9,6 +9,8 @@ let wordLength = 25
 // setup typing 50 typing words
 let str = 'be and off a in to have too it I that for you he with on do say this they at but we his from that not can by she or as what go their who get if would her all my make take about know will one time there year so think when which them some me people out into just see him your come could now than like other how then its our two more these want look first also because day more use no find man here thing give many well only those tell through woman back even very down may should call world school ask need feel three when state never become between high really something most another much family own out leave old while mean on keep student great let group big same seem country help talk where turn start hand might show part against place over'
 let words = str.split(" ")
+let firstWord = true
+let startTime, endTime, wpm
 
 start(wordLength)
 
@@ -20,15 +22,22 @@ input.addEventListener('input', function () {
 // assess full word spelling
 input.addEventListener('keydown', function (e) {
     try {
+        if (firstWord) {
+            startTime = new Date().getTime()
+            firstWord = false
+        }
         if (e.code === 'Space' || e.code === 'Enter') {
             e.preventDefault()
             if (wordOrder < randomWords.length) {
                 // textHighlight()
                 checkFinishedSpelling(input.value)
-                document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
+                document.querySelector('#score').innerText = `Your score: ${point}/${wordLength}`
                 input.value = ''
                 wordOrder++
-                if (wordOrder === randomWords.length) countAccuracy()
+                if (wordOrder === randomWords.length) {
+                    countAccuracy()
+                    countWordPerMinute()
+                }
                 else textHighlight()
             }
         }
@@ -111,20 +120,31 @@ function start(number) {
     correctInputStyle()
     wordOrder = 0
     point = 0
+    firstWord = true
     text.innerHTML = ''
     for (let i = 0; i < number; i++) {
         text.innerHTML += `<span>${words[Math.floor(Math.random() * words.length)]}</span>` + ' '
     }
     randomWords = document.querySelectorAll('span')
     textHighlight()
-    document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
+    document.querySelector('#score').innerText = `Your score: ${point}/${wordLength}`
 }
 
 /**
  * display accuracy at when all the words are checked
  */
 function countAccuracy() {
-    document.querySelectorAll('h3')[2].innerText = `Accuracy: ${(point / wordLength) * 100}%`
+    document.querySelector('#acc').innerText = `Accuracy: ${(point / wordLength) * 100}%`
+}
+
+/**
+ * count and display wpm
+ */
+function countWordPerMinute() {
+    endTime = new Date().getTime()
+    duration = (endTime-startTime)/60000
+    wpm = point/duration
+    document.querySelector('#wpm').innerText = `WPM: ${Math.round(point/duration)}`
 }
 
 /**
