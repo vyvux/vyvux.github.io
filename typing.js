@@ -8,7 +8,7 @@ let randomWords
 let wordLength = 25
 // setup typing 50 typing words
 let str = 'be and off a in to have too it I that for you he with on do say this they at but we his from that not can by she or as what go their who get if would her all my make take about know will one time there year so think when which them some me people out into just see him your come could now than like other how then its our two more these want look first also because day more use no find man here thing give many well only those tell through woman back even very down may should call world school ask need feel three when state never become between high really something most another much family own out leave old while mean on keep student great let group big same seem country help talk where turn start hand might show part against place over'
-let words = str.split(" ") 
+let words = str.split(" ")
 
 start(wordLength)
 
@@ -19,18 +19,23 @@ input.addEventListener('input', function () {
 
 // assess full word spelling
 input.addEventListener('keydown', function (e) {
-    if (e.code === 'Space' || e.code === 'Enter') {
-        e.preventDefault()
-        if (wordOrder < randomWords.length){
-            textHighlight()
-            checkFinishedSpelling(input.value)
-            document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
-            input.value = ''
-            wordOrder++
-            if (wordOrder === randomWords.length) countAccuracy()
-        } 
-        
+    try {
+        if (e.code === 'Space' || e.code === 'Enter') {
+            e.preventDefault()
+            if (wordOrder < randomWords.length) {
+                // textHighlight()
+                checkFinishedSpelling(input.value)
+                document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
+                input.value = ''
+                wordOrder++
+                if (wordOrder === randomWords.length) countAccuracy()
+                else textHighlight()
+            }
+        }
+    } catch (error) {
+        if (error instanceof TypeError) { logMyErrors(error)}
     }
+
 })
 
 redoButton.addEventListener('click', () => start(wordLength))
@@ -38,21 +43,21 @@ redoButton.addEventListener('click', () => start(wordLength))
 const short = document.querySelector('#short')
 const medium = document.querySelector('#medium')
 const long = document.querySelector('#long')
-short.addEventListener('click', function() {
+short.addEventListener('click', function () {
     wordLength = 25
     start(wordLength)
     short.classList.add('selected')
     medium.classList.remove('selected')
     long.classList.remove('selected')
 })
-medium.addEventListener('click', function() {
+medium.addEventListener('click', function () {
     wordLength = 50
     start(wordLength)
     short.classList.remove('selected')
     medium.classList.add('selected')
     long.classList.remove('selected')
 })
-long.addEventListener('click', function() {
+long.addEventListener('click', function () {
     wordLength = 100
     start(wordLength)
     short.classList.remove('selected')
@@ -61,7 +66,12 @@ long.addEventListener('click', function() {
 })
 
 
-
+/**
+ * check the finished input
+    word turns orange if correct
+    otherwise turns grey
+ * @param {*} theWord to check
+ */
 function checkFinishedSpelling(theWord) {
     if (theWord === randomWords[wordOrder].innerText) {
         randomWords[wordOrder].style.color = '#eba834'
@@ -71,6 +81,12 @@ function checkFinishedSpelling(theWord) {
     }
 }
 
+/**
+ * check ongoing spelling
+ * input field turns red background and white color when incorrect
+ * otherwise as normal
+ */
+
 function checkOngoingSpelling() {
     if (input.value !== null && input.value !== randomWords[wordOrder].innerText.slice(0, input.value.length)) {
         incorrectInputStyle()
@@ -79,11 +95,18 @@ function checkOngoingSpelling() {
     }
 }
 
-function textHighlight(){
+/**
+ * highlight the current word on the run
+ */
+function textHighlight() {
     randomWords[wordOrder].style.color = 'red'
 }
 
-function start(number){
+/**
+ * start or restart, refresh word list
+ * @param {*} number the size of word list
+ */
+function start(number) {
     input.value = ''
     correctInputStyle()
     wordOrder = 0
@@ -97,16 +120,25 @@ function start(number){
     document.querySelectorAll('h3')[1].innerText = `Your score: ${point}/${wordLength}`
 }
 
-function countAccuracy(){
-    document.querySelectorAll('h3')[2].innerText = `Accuracy: ${(point/wordLength)*100}%`
+/**
+ * display accuracy at when all the words are checked
+ */
+function countAccuracy() {
+    document.querySelectorAll('h3')[2].innerText = `Accuracy: ${(point / wordLength) * 100}%`
 }
 
-function correctInputStyle(){
+/**
+ * change input field style to correct
+ */
+function correctInputStyle() {
     input.style.backgroundColor = 'white'
-        input.style.color = 'olive'
+    input.style.color = 'rosybrown'
 }
-    
-function incorrectInputStyle(){
+
+/**
+ * change input field style to incorrect
+ */
+function incorrectInputStyle() {
     input.style.backgroundColor = '#ff9999'
     input.style.color = 'white'
 }
