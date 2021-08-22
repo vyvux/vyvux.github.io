@@ -1,6 +1,6 @@
 ## Typing test web app
 
-![typing test](./data/typing-test.png "Typing test")
+![typing test](./data/typing-test.PNG "Typing test")
 
 ####Try it out @ https://vyvux.github.io/
 
